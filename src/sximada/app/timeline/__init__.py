@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 
@@ -15,8 +17,8 @@ def serve(global_config, **settings):
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
     config.include('pyramid_chameleon')
-    config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_route('sximada.app.timeline.debug', '/debug')
     config.add_route('sximada.app.timeline.ping', '/ping')
-    config.add_route('home', '/')
+    config.add_static_view('', 'static', cache_max_age=3600)
     config.scan()
     return config.make_wsgi_app()
